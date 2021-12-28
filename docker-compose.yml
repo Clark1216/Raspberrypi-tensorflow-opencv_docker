@@ -1,13 +1,14 @@
 version: "3.7"
 services:
-  camera:
-     container_name: camera 
-     image: armindocachada/tensorflow2-opencv4-raspberrypi4:2.2_4.5.0
+  camera_based_person_counter:
+     container_name: camera_based_person_counter 
+     image: tensorflow2-opencv4-rpi4:1.0
      network_mode: host
      restart: always
      volumes:
         - /dev/bus/usb:/dev/bus/usb
         - /opt/vc:/opt/vc
+        - /dev/video1:/dev/video1
         - ./python:/app
         - /tmp/.X11-unix:/tmp/.X11-unix
      environment:

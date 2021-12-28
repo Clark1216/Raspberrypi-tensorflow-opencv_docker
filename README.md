@@ -1,6 +1,6 @@
 ## raspberrypi-docker-tensorflow-opencv
 
-I will be adding a proper Readme.md to this repository very soon. 
+I will be adding a proper Readme.md to this repository very soon.
 Suffice to say that I am trying to build a docker container with version 2.3 of Tensorflow and also will be adding OpenCV and FFMPEG.
 
 If you are looking for answers before I get to build the Readme.md I recommend you to watch how I built this repository on
@@ -48,7 +48,7 @@ Now we can install docker-compose with pip and test it after installation:
 pip3 install docker-compose
 docker-compose version
 ```
-#### Raspberry PI Camera Setup 
+#### Raspberry PI Camera Setup
 If you have no idea about installing the PiCameraV2, kindly refer to this [guide](https://spltech.co.uk/raspberry-pi-camera-tutorial-how-to-install-a-raspberry-pi-camera/)
 
 #### Starting the camera docker container
@@ -58,7 +58,10 @@ $ cd raspberrypi-docker-tensorflow-opencv
 $ docker-compose up -d
 ```
 It might take a while as it will download the docker container from docker hub.
-
+If it cannot build docker image automatically, try:
+```
+docker build -t tensorflow2-opencv4-rpi4:1.0 .
+```
 #### Enabling access to X11 Server
 The camera docker container needs to connect to the X11 server running on the Raspberry PI. We need to allow it to do so. Best way is to disable the user permission and allow all clients to use:
 ```
@@ -66,19 +69,34 @@ xhost +
 ```
 To validate that the docker container is able to open a window with a view of the Picamera let’s try python example3.py:
 ```
-$ docker exec -it camera bash
-$ cd /app/ 
+$ docker exec -it camera_based_person_counter bash
+$ cd /app/
 $ python3 example3.py
 ```
 If your camera is working then you should be able to see a window displaying what your camera is capturing.
+
+If you are using UVC camera, try either one below instead:
+```
+fswebcam -d /dev/video1 --no-banner -r 1280x720 "./output.jpg"
+```
+```
+$ cd /app/
+$ python3 UVC_camera_test.py
+```
 
 #### Download detection model and Test Object Detection
 Now that we know that the camera is working, we can test object detection.
 To start object detection on the raspberry pi open a terminal again.
 ```
-docker exec -it camera bash
+docker exec -it camera_based_person_counter bash
 cd /app
 python3 object_detection_camera.py
 ```
-Then it will automatically download model if there is no exisitng one. 
+Then it will automatically download model if there is no existing one.
 The model loading will usually take 3 minutes. If all goes well you should see a window popup with a view of the camera with annotation from object detection.
+
+Eventually, enjoy trying person counter code and its API as well:
+```
+$ python3 camera_based_person_counter.py
+$ python3 camera_based_person_counter_API.py
+```
