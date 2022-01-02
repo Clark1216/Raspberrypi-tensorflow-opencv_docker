@@ -1,4 +1,4 @@
-## raspberrypi-docker-tensorflow-opencv
+# raspberrypi-docker-tensorflow-opencv
 
 I will be adding a proper Readme.md to this repository very soon.
 Suffice to say that I am trying to build a docker container with version 2.3 of Tensorflow and also will be adding OpenCV and FFMPEG.
@@ -7,7 +7,7 @@ If you are looking for answers before I get to build the Readme.md I recommend y
 
 Below is modified and tested from The original [Step-By-Step Instructions](https://spltech.co.uk/how-to-run-object-detection-with-tensorflow-2-on-the-raspberry-pi-using-docker/) and [Youtube video](https://www.youtube.com/watch?v=uENGyDXnI2M&list=PL3OV2Akk7XpAOAeD8BbqpHcELoxihaMvc):
 
-### Setup
+## Setup
 These are the main steps you need to complete:
 * Install and configure the PI Camera if you haven’t yet. See this separate guide I created to install it:
 * How to Install a Raspberry PI Camera
@@ -17,7 +17,7 @@ These are the main steps you need to complete:
 * Download model from model Zoo
 * Run example
 
-#### Installing Docker
+### Installing Docker
 Installing Docker in the Raspberry PI is very easy. But before you do that, it is always best that you get all the latest updates on your Raspberry PI. So let’s do that first:
 ```
 sudo apt update
@@ -48,10 +48,10 @@ Now we can install docker-compose with pip and test it after installation:
 pip3 install docker-compose
 docker-compose version
 ```
-#### Raspberry PI Camera Setup
+### Raspberry PI Camera Setup
 If you have no idea about installing the PiCameraV2, kindly refer to this [guide](https://spltech.co.uk/raspberry-pi-camera-tutorial-how-to-install-a-raspberry-pi-camera/)
 
-#### Starting the camera docker container
+### Starting the camera docker container
 After giit cloning this [repository](https://github.com/Clark1216/Raspberrypi-tensorflow-opencv_docker), Run the container:
 ```
 $ cd raspberrypi-docker-tensorflow-opencv
@@ -62,7 +62,7 @@ If it cannot build docker image automatically, try:
 ```
 docker build -t tensorflow2-opencv4-rpi4:1.0 .
 ```
-#### Enabling access to X11 Server
+### Enabling access to X11 Server
 The camera docker container needs to connect to the X11 server running on the Raspberry PI. We need to allow it to do so. Best way is to disable the user permission and allow all clients to use:
 ```
 xhost +
@@ -84,7 +84,7 @@ $ cd /app/
 $ python3 UVC_camera_test.py
 ```
 
-#### Download detection model and Test Object Detection
+### Download detection model and Test Object Detection
 Now that we know that the camera is working, we can test object detection.
 To start object detection on the raspberry pi open a terminal again.
 ```
@@ -100,3 +100,17 @@ Eventually, enjoy trying person counter code and its API as well:
 $ python3 camera_based_person_counter.py
 $ python3 camera_based_person_counter_API.py
 ```
+
+---
+## About
+
+### Authors
+
+* **Guanliang Zhao, M.Sc.** - *Programe, full stack* - EEE School, Nanyang Technological University, Singapore
+* **Dr Pengfei Du** - *Initial work,*Supervision* - [A*Star SIMTech, Singapore](https://www.a-star.edu.sg/simtech)
+
+
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
