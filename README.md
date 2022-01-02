@@ -103,11 +103,12 @@ $ python3 camera_based_person_counter_API.py
 
 ---
 ## About
+This work is on top of [work](https://github.com/armindocachada/raspberrypi-docker-tensorflow-opencv) from armindocachada for acedemic research.
 
 ### Authors
 
 * **Guanliang Zhao, M.Sc.** - *Programe, full stack* - EEE School, Nanyang Technological University, Singapore
-* **Dr Pengfei Du** - *Initial work,*Supervision* - [A*Star SIMTech, Singapore](https://www.a-star.edu.sg/simtech)
+* **Dr Pengfei Du** - *Initial work, Supervision* - [A*Star SIMTech, Singapore](https://www.a-star.edu.sg/simtech)
 
 
 
