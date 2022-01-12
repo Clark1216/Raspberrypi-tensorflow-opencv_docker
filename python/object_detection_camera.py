@@ -105,7 +105,6 @@ def downloadModel(MODEL_URL):
     lastpos = MODEL_URL.rfind(".")
     MODEL_NAME = MODEL_URL[firstpos + 1:lastpos]
     MODEL_FILE = MODEL_NAME + '.tar.gz'
-
     print("Preparing to download tensorflow model {}".format(MODEL_FILE))
     print("Is file downloaded? %s " % os.path.isfile(MODEL_FILE))
     if not os.path.isfile(MODEL_FILE):

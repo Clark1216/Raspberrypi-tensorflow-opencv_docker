@@ -6,6 +6,10 @@ RUN apt-get install -y fswebcam
 COPY requirements.txt /
 RUN pip3 install -r /requirements.txt
 
+#Add TF dependencies
+RUN echo 'export OBJECT_DETECTION_API_PATH=/tensorflow/models/research/object_detection' >> /root/.bashrc
+RUN cd /tensorflow/models/research && echo "export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim:`pwd`/object_detection" >> /root/.bashrc
+
 # Set time zone
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN echo 'Asia/Shanghai' > /etc/timezone
