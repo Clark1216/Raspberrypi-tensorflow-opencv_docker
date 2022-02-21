@@ -67,7 +67,7 @@ If you have no idea about installing the PiCameraV2, kindly refer to this [guide
 ### Starting the camera docker container
 After giit cloning this [repository](https://github.com/Clark1216/Raspberrypi-tensorflow-opencv_docker), Run the container:
 ```
-$ cd raspberrypi-docker-tensorflow-opencv
+$ cd Raspberrypi-tensorflow-opencv_docker
 ```
 ```
 $ docker-compose up -d
