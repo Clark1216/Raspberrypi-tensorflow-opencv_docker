@@ -21,7 +21,11 @@ These are the main steps you need to complete:
 Installing Docker in the Raspberry PI is very easy. But before you do that, it is always best that you get all the latest updates on your Raspberry PI. So let’s do that first:
 ```
 sudo apt update
+```
+```
 sudo apt upgrade
+```
+```
 sudo reboot
 ```
 And now we are ready to install docker:
@@ -35,17 +39,26 @@ sudo usermod -aG docker pi
 And let's reboot again, then double check that docker is really installed:
 ```
 sudo reboot
+```
+```
 docker version
 ```
 Last step is to install docker-compose on the Raspberry PI
 To get docker-compose up and running, we will need python 3 and pip. So let’s install it first:
 ```
 sudo apt update
+```
+```
 sudo apt install python3 python3-pip
 ```
 Now we can install docker-compose with pip and test it after installation:
 ```
 pip3 install docker-compose
+```
+```
+sudo reboot
+```
+```
 docker-compose version
 ```
 ### Raspberry PI Camera Setup
@@ -55,6 +68,8 @@ If you have no idea about installing the PiCameraV2, kindly refer to this [guide
 After giit cloning this [repository](https://github.com/Clark1216/Raspberrypi-tensorflow-opencv_docker), Run the container:
 ```
 $ cd raspberrypi-docker-tensorflow-opencv
+```
+```
 $ docker-compose up -d
 ```
 It might take a while as it will download the docker container from docker hub.
@@ -70,7 +85,11 @@ xhost +
 To validate that the docker container is able to open a window with a view of the Picamera let’s try python example3.py:
 ```
 $ docker exec -it camera_based_person_counter bash
+```
+```
 $ cd /app/
+```
+```
 $ python3 example3.py
 ```
 If your camera is working then you should be able to see a window displaying what your camera is capturing.
@@ -81,6 +100,8 @@ fswebcam -d /dev/video1 --no-banner -r 1280x720 "./output.jpg"
 ```
 ```
 $ cd /app/
+```
+```
 $ python3 UVC_camera_test.py
 ```
 
@@ -89,7 +110,11 @@ Now that we know that the camera is working, we can test object detection.
 To start object detection on the raspberry pi open a terminal again.
 ```
 docker exec -it camera_based_person_counter bash
+```
+```
 cd /app
+```
+```
 python3 object_detection_camera.py
 ```
 Then it will automatically download model if there is no existing one.
@@ -98,6 +123,8 @@ The model loading will usually take 3 minutes. If all goes well you should see a
 Eventually, enjoy trying person counter code and its API as well:
 ```
 $ python3 camera_based_person_counter.py
+```
+```
 $ python3 camera_based_person_counter_API.py
 ```
 
