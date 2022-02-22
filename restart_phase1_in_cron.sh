@@ -1,0 +1,1 @@
+docker stop camera_based_person_counter
