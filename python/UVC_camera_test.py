@@ -29,9 +29,6 @@ import requests
 import json
 from six import BytesIO
 
-# from picamera.array import PiRGBArray
-# from picamera import PiCamera
-
 # Load the COCO Label Map
 elapsed = []
 
@@ -70,12 +67,6 @@ def uvc_capture(filepath):
 ######################
 if __name__ == '__main__':
 
-    # initialize the camera and grab a reference to the raw camera capture
-    # camera = PiCamera()
-    # resolution = (1280, 720)
-    # camera.resolution = resolution
-    # camera.framerate = 20
-#     Camera_Setting()
     filepath='/app/imputdata/cam_test.jpg'
     print("Camera starting")
     uvc_capture(filepath)

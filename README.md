@@ -12,9 +12,9 @@ Below is modified and tested from The original [Step-By-Step Instructions](https
 
 | Raspberry Model                                                                              | RAM w/ GPU Memory Allocation | Raspberry Pi OS | Results |
 | ----                                                                                       | ----           | ----         | ---- |
-| 4B  | 1G / 64M     | Debian 10.11 "Buster" | Fail (due to insufficient RAM)
-| 4B  | 4G w/ 256M    | Debian 10.11 "Buster" | Pass
-| 4B | 4G w/ 256M | Debian 11.0 "Bullseyes" | Fail (due to longer support Picamera libs)
+| Pi 4 Model B Rev 1.1  | 1G / 64M     | Debian 10 "Buster" (Linux kernel 5.10.63) | Fail (lagging and crash due to insufficient RAM)
+| Pi 4 Model B Rev 1.1  | 4G w/ 256M    | Debian 10 "Buster" (Linux kernel 5.10.63) | Pass
+| Pi 4 Model B+ Rev 1.1 | 4G w/ 256M | Debian 11 "Bullseyes" (Linux kernel 5.10.92) | Fail (due to OS longer supports picamera libs)
 
 
 
@@ -148,7 +148,7 @@ command: bash -c "cd /app/ && python3 camera_based_person_counter_API.py"
 ## Unsolved issue log for reference of developers
 1. Log-2022-02-22:
 
-In the new Rpi4 OS 4.1 released by Jan 2022, PiRGBArray and Picamera has import error in regardless of original docker or our own complied docker, shown as below:
+In the new OS Debian 11 "Bullseye" released by Jan 2022, PiRGBArray and Picamera has import error in regardless of original docker or our own complied docker, shown as below:
 ```
 Traceback (most recent call last):
   File "example.py", line 2, in <module>
@@ -165,7 +165,7 @@ Traceback (most recent call last):
     self._handle = _dlopen(self._name, mode)
 OSError: libbcm_host.so: cannot open shared object file: No such file or directory
 ```
-**Comment:** This problem looks very similar to [this post](https://raspberrypi.stackexchange.com/questions/114035/picamera-and-ubuntu-20-04-arm64) indicating that Picamera is no longer fully supported but this is not sensible as the OS is independent with the docker, hence it seems weird. Guessing will be OS's 32bit or 64bit issue, which can be verified later.
+**Solved:** We have confirmed this problem never occurred on Debian 10. Therefore, this problem is indeed due to that Debian 11 no longer supports picamera libraries, even though this is not sensible as the OS is independent with the docker. Guessing the root cause is the adopted new linux kernel. 
 
 ---
 ## About
