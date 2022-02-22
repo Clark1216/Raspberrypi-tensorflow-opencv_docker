@@ -35,8 +35,8 @@ import requests
 import json
 from six import BytesIO
 
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+# from picamera.array import PiRGBArray
+# from picamera import PiCamera
 
 from threading import Timer
 
@@ -305,6 +305,6 @@ if __name__ == '__main__':
     detect_fn= loadTensorflowModel()
     print("Model Loaded, app running")
     os.chdir("/app")
-    app.run(debug=True, port=83, host='127.0.0.1')
-    # app.run(debug=True, port=83, host='172.20.115.125')
+    # app.run(debug=True, port=83, host='127.0.0.1')
+    app.run(debug=True, port=83, host='172.20.115.125')
    

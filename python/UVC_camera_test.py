@@ -29,8 +29,8 @@ import requests
 import json
 from six import BytesIO
 
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+# from picamera.array import PiRGBArray
+# from picamera import PiCamera
 
 # Load the COCO Label Map
 elapsed = []
