@@ -7,6 +7,17 @@ If you are looking for answers before I get to build the Readme.md I recommend y
 
 Below is modified and tested from The original [Step-By-Step Instructions](https://spltech.co.uk/how-to-run-object-detection-with-tensorflow-2-on-the-raspberry-pi-using-docker/) and [Youtube video](https://www.youtube.com/watch?v=uENGyDXnI2M&list=PL3OV2Akk7XpAOAeD8BbqpHcELoxihaMvc):
 
+## Prerequisites
+**Test History:**
+
+| Raspberry Model                                                                              | RAM w/ GPU Memory Allocation | Raspberry Pi OS | Results |
+| ----                                                                                       | ----           | ----         | ---- |
+| 4B  | 1G / 64M     | Debian 10.11 "Buster" | Fail (due to insufficient RAM)
+| 4B  | 4G w/ 256M    | Debian 10.11 "Buster" | Pass
+| 4B | 4G w/ 256M | Debian 11.0 "Bullseyes" | Fail (due to longer support Picamera libs)
+
+
+
 ## Setup
 These are the main steps you need to complete:
 * Install and configure the PI Camera if you haven’t yet. See this separate guide I created to install it:
