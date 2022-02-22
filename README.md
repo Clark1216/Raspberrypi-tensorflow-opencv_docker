@@ -132,7 +132,7 @@ $ python3 camera_based_person_counter_API.py
 ## Unsolved issue log for reference of developers
 1. Log-2022-02-22:
 
-In the new Rpi4 OS released by Jan 2022, PiRGBArray has import error in regardless of original docker or our own complied docker, shown as below:
+In the new Rpi4 OS 4.1 released by Jan 2022, PiRGBArray and Picamera has import error in regardless of original docker or our own complied docker, shown as below:
 ```
 Traceback (most recent call last):
   File "example.py", line 2, in <module>
