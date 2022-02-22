@@ -149,7 +149,7 @@ Traceback (most recent call last):
     self._handle = _dlopen(self._name, mode)
 OSError: libbcm_host.so: cannot open shared object file: No such file or directory
 ```
-**Comment:** but this is not sensible as the OS is independent with docker, hence it seems weird.
+**Comment:** This problem looks very similar to [this post](https://raspberrypi.stackexchange.com/questions/114035/picamera-and-ubuntu-20-04-arm64) indicating that Picamera is no longer fully supported but this is not sensible as the OS is independent with the docker, hence it seems weird. Guessing will be OS's 32bit or 64bit issue, which can be verified later.
 
 ---
 ## About
