@@ -129,6 +129,29 @@ $ python3 camera_based_person_counter_API.py
 ```
 
 ---
+## Unsolved issue log for reference of developers
+1. Log-2022-02-22:
+
+In the new Rpi4 OS released by Jan 2022, PiRGBArray has import error in regardless of original docker or our own complied docker, shown as below:
+```
+Traceback (most recent call last):
+  File "example.py", line 2, in <module>
+    from picamera.array import PiRGBArray
+  File "/usr/local/lib/python3.7/dist-packages/picamera/__init__.py", line 72, in <module>
+    from picamera.exc import (
+  File "/usr/local/lib/python3.7/dist-packages/picamera/exc.py", line 41, in <module>
+    import picamera.mmal as mmal
+  File "/usr/local/lib/python3.7/dist-packages/picamera/mmal.py", line 47, in <module>
+    from .bcm_host import VCOS_UNSIGNED
+  File "/usr/local/lib/python3.7/dist-packages/picamera/bcm_host.py", line 47, in <module>
+    _lib = ct.CDLL('libbcm_host.so')
+  File "/usr/lib/python3.7/ctypes/__init__.py", line 356, in __init__
+    self._handle = _dlopen(self._name, mode)
+OSError: libbcm_host.so: cannot open shared object file: No such file or directory
+```
+**Comment:** but this is not sensible as the OS is independent with docker, hence it seems weird.
+
+---
 ## About
 This work is on top of [work](https://github.com/armindocachada/raspberrypi-docker-tensorflow-opencv) from armindocachada for acedemic research.
 
