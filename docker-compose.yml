@@ -18,5 +18,5 @@ services:
      devices:
         - "/dev/vchiq:/dev/vchiq"
      privileged: true
-     command: bash -c "cd /app/ && python3 camera_based_person_counter_API.py"
+     # command: bash -c "cd /app/ && python3 camera_based_person_counter_API.py"
      # command: bash -c "cd /app/ && python3 Hello_World_API.py"

@@ -67,10 +67,10 @@ If you have no idea about installing the PiCameraV2, kindly refer to this [guide
 ### Starting the camera docker container
 After giit cloning this [repository](https://github.com/Clark1216/Raspberrypi-tensorflow-opencv_docker), Run the container:
 ```
-$ cd Raspberrypi-tensorflow-opencv_docker
+cd Raspberrypi-tensorflow-opencv_docker
 ```
 ```
-$ docker-compose up -d
+docker-compose up -d
 ```
 It might take a while as it will download the docker container from docker hub.
 If it cannot build docker image automatically, try:
@@ -84,13 +84,13 @@ xhost +
 ```
 To validate that the docker container is able to open a window with a view of the Picamera let’s try python example3.py:
 ```
-$ docker exec -it camera_based_person_counter bash
+docker exec -it camera_based_person_counter bash
 ```
 ```
-$ cd /app/
+cd /app/
 ```
 ```
-$ python3 example3.py
+python3 example3.py
 ```
 If your camera is working then you should be able to see a window displaying what your camera is capturing.
 
@@ -99,10 +99,10 @@ If you are using UVC camera, try either one below instead:
 fswebcam -d /dev/video1 --no-banner -r 1280x720 "./output.jpg"
 ```
 ```
-$ cd /app/
+cd /app/
 ```
 ```
-$ python3 UVC_camera_test.py
+python3 UVC_camera_test.py
 ```
 
 ### Download detection model and Test Object Detection
@@ -122,10 +122,15 @@ The model loading will usually take 3 minutes. If all goes well you should see a
 
 Eventually, enjoy trying person counter code and its API as well:
 ```
-$ python3 camera_based_person_counter.py
+python3 camera_based_person_counter.py
 ```
 ```
-$ python3 camera_based_person_counter_API.py
+python3 camera_based_person_counter_API.py
+```
+
+Alternatively, remove and recreate the container by uncommenting the 2nd to last line in `docker-compose.yml` to activate autostart of API upon each reboot:
+```
+command: bash -c "cd /app/ && python3 camera_based_person_counter_API.py"
 ```
 
 ---
