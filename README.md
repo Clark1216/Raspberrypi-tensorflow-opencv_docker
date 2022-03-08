@@ -145,7 +145,7 @@ command: bash -c "cd /app/ && python3 camera_based_person_counter_API.py"
 ```
 
 ---
-## Unsolved issue log for reference of developers
+## Issue log for reference of developers
 1. Log-2022-02-22:
 
 In the new OS Debian 11 "Bullseye" released by Jan 2022, PiRGBArray and Picamera has import error in regardless of original docker or our own complied docker, shown as below:
