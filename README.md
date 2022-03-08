@@ -14,8 +14,8 @@ Below is modified and tested from The original [Step-By-Step Instructions](https
 | ----                                                                                       | ----           | ----         | ---- |
 | Pi 4 Model B Rev 1.1  | 1G / 64M     | Debian 10 "Buster" (Linux kernel 5.10.63) | Fail (lagging and crash due to insufficient RAM)
 | Pi 4 Model B Rev 1.1  | 4G w/ 256M    | Debian 10 "Buster" (Linux kernel 5.10.63) | Pass
-| Pi 4 Model B+ Rev 1.1 | 4G w/ 256M | Debian 11 "Bullseyes" (Linux kernel 5.10.92) | Fail (due to OS longer supports picamera libs)
-
+| Pi 4 Model B Rev 1.1 | 4G w/ 256M | Debian 11 "Bullseyes" (Linux kernel 5.10.92) | Fail (due to OS longer supports picamera libs)
+| Pi 4 Model B+ Rev 1.1  | 8G w/ 256M    | Debian 10 "Buster" (Linux kernel 5.10.63) | Pass
 
 
 ## Setup
