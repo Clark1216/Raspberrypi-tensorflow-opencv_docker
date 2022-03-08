@@ -110,9 +110,6 @@ If you are using UVC camera, try either one below instead:
 fswebcam -d /dev/video1 --no-banner -r 1280x720 "./output.jpg"
 ```
 ```
-cd /app/
-```
-```
 python3 UVC_camera_test.py
 ```
 

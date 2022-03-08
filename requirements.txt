@@ -51,3 +51,4 @@ urllib3==1.26.2
 Werkzeug==2.0.2
 wrapt==1.12.1
 zipp==3.4.0
+##pygame==1.9.4

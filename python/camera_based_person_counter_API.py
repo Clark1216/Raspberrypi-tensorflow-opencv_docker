@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, session,jsonify
+from flask import send_file
 #import requests
 from time import sleep
 
@@ -43,7 +44,27 @@ from threading import Timer
 #BSD License need to declare for picamera,https://opensource.org/licenses/BSD-3-Clause
 app = Flask(__name__)
 
-def Camera_Setting():
+def Camera_Searching():
+    camera_id_list = []
+    for device in range(0,10):
+        stream = cv2.VideoCapture(device)
+        
+        grabbed = stream.grab()
+        stream.release()
+        if not grabbed:
+            continue
+        
+        camera_id_list.append(device)
+    print('Available camera IDs are {}'.format(camera_id_list))
+    if camera_id_list:
+        print('Choose the most likely UVC cam id: {}'.format(camera_id_list[0]))
+        return camera_id_list[0]
+    else:
+        print('No available UVC modules!')
+        return camera_id_list
+
+
+def Camera_Setting(dev_num):
     #setting attributes
     fps = "15"
     brightness = "64"
@@ -56,16 +77,16 @@ def Camera_Setting():
     exposure_absolute = "179"
     exposure_auto_priority = "0"
     #setting commands
-    os.system("v4l2-ctl -d /dev/video0 --set-parm={}".format(fps))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('brightness',brightness))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('contrast',contrast))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('saturation',saturation))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('white_balance_temperature_auto',white_balance_temperature_auto))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('white_balance_temperature',white_balance_temperature))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('backlight_compensation',backlight_compensation))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('exposure_auto',exposure_auto))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('exposure_absolute',exposure_absolute))
-    os.system("v4l2-ctl -d /dev/video0 --set-ctrl={}={}".format('exposure_auto_priority',exposure_auto_priority))
+    os.system("v4l2-ctl -d /dev/video{} --set-parm={}".format(dev_num,fps))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'brightness',brightness))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'contrast',contrast))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'saturation',saturation))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'white_balance_temperature_auto',white_balance_temperature_auto))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'white_balance_temperature',white_balance_temperature))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'backlight_compensation',backlight_compensation))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'exposure_auto',exposure_auto))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'exposure_absolute',exposure_absolute))
+    os.system("v4l2-ctl -d /dev/video{} --set-ctrl={}={}".format(dev_num,'exposure_auto_priority',exposure_auto_priority))
     print('Camera setting finished.')
 
 def downloadModel(MODEL_URL):
@@ -84,9 +105,11 @@ def downloadModel(MODEL_URL):
             file_name = os.path.basename(file.name)
             tar_file.extract(file, os.getcwd())
 
-def uvc_capture(filepath):
-    #kindly notice command "/dev/video0" using physical address, do not use "/dev/video0" 
-    commands = "fswebcam -d /dev/video0 --no-banner -r 1280x720 {}".format(filepath)
+def uvc_capture(filepath, dev_num):
+    ## kindly notice command "/dev/video0" using physical address, do not use "/dev/video0"
+    ## Comment below 1 line if default setting for camera is needed
+    #Camera_Setting(dev_num)    
+    commands = "fswebcam -d /dev/video{} --no-banner -r 1280x720 {}".format(dev_num, filepath)
     capture = os.system(commands)
 
 def loadTensorflowModel():
@@ -122,12 +145,12 @@ def doinference(image_np):
 
     return [image_np_with_detections,detections['detection_classes'][0].numpy().astype(np.int32), detections['detection_scores'][0].numpy()]
 
-def corefunction(filepath,outputpath):
+def corefunction(filepath,outputpath,dev_num):
     
 #     filepath='/app/imputdata/1.jpg'
 #     outputpath="/app/outputdata/1.jpg"
     print("Camera starting")
-    uvc_capture(filepath)
+    uvc_capture(filepath,dev_num)
     image_rgb_np =cv2.imread(filepath)
     #frame = piFrame.array
     #image_rgb_np = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -191,26 +214,50 @@ def index():
 #         return hour*3600 + min*60 + sec;
 #     second = sleeptime(0,0,2);
     count_tmp = 0
+    dark_ct = 0
+    dark_flag = False
     while count_tmp < 8:
         #     filepath='/app/imputdata/1.jpg'
 #     outputpath="/app/outputdata/1.jpg"
         inputpath = os.path.join('/app/imputdata/',str(count_tmp)+'.jpg')
         outpath = os.path.join('/app/outputdata/',str(count_tmp)+'.jpg')
-        ct_tmp = corefunction(inputpath, outpath)
+        ct_tmp = corefunction(inputpath, outpath, dev_num)
         if ct_tmp != -1:
             a.append(ct_tmp)
             count_tmp = count_tmp + 1
+            dark_ct = 0
 #         time.sleep(second);
-        print('+++++++HUMAN DETECTING LOOP+++++++++++')
+        else:
+            if dark_ct < 9:
+                dark_ct = dark_ct +1
+            else:
+                a = []
+                dark_flag = True
+                break
+        print('+++++++HUMAN DETECTING LOOP {}+++++++++++'.format(count_tmp))
     if a:
         tmp = np.ceil(np.mean(a))
         print('final count is', int(tmp))
         #return str(int(tmp))
         return str(json.dumps([str(int(tmp)),str(datetime.now())]))
+    elif dark_flag:
+        return str('The lighting condition is too dark, pls try again later')
     else:
         return str('Looping is spoiled, pls contact A*STAR developer Dr. Du Pengfei')
 
+@app.route('/get_image')
+def get_image():
+    filename = '/app/outputdata/4.jpg'    
+    if os.path.isfile(filename):
+        return send_file(filename, mimetype='image/jpg')
+    else:
+        return str('There is no image file that can be transfered in the target directory')
+
 if __name__ == '__main__':
+    
+    print("Camera connecting")
+    dev_num = Camera_Searching()    
+    
     print("loading label maps")
     # Load the COCO Label Map
     elapsed = []
@@ -305,6 +352,6 @@ if __name__ == '__main__':
     detect_fn= loadTensorflowModel()
     print("Model Loaded, app running")
     os.chdir("/app")
-    # app.run(debug=True, port=83, host='127.0.0.1')
-    app.run(debug=True, port=83, host='172.20.115.125')
+    app.run(debug=True, port=83, host='127.0.0.1')
+    # app.run(debug=True, port=83, host='172.20.115.125')
    

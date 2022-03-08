@@ -1,4 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, session,jsonify
+from flask import send_file
 #import requests
 from time import sleep
 
@@ -188,6 +189,20 @@ def decoder(threshold,file_path1,file_path2):#Input is the binarization threshol
 @app.route('/')
 def index():
     return str('Hello, pls contact A*STAR developer Dr. Du Pengfei')
+
+@app.route('/get_image')
+def get_image():
+##Below 4 lines are stricting criteria: only send desired images in get mode. Toggle between below 4 lines and 5th line to swtich.
+#     if request.args.get('type') == '1':
+#         filename = './outputdata/Astar.jpeg'
+#     else:
+#         filename = './outputdata/error.jpeg'
+    filename = './outputdata/Astar.jpeg'
+    
+    if os.path.isfile(filename):
+        return send_file(filename, mimetype='image/jpeg')
+    else:
+        return str('There is no image file that can be transfered in the target directory')
 
 if __name__ == '__main__':     
     app.run(debug=True, port=83, host='127.0.0.1')
