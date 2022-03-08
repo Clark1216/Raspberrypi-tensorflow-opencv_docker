@@ -112,6 +112,7 @@ fswebcam -d /dev/video1 --no-banner -r 1280x720 "./output.jpg"
 ```
 python3 UVC_camera_test.py
 ```
+**Note:** first cmd is just an example, and we need to manually change video ID depending on the actual port occupied by camera devices, while UVC_camera_test.py can automatically locate the port number of UVC_camera.
 
 ### Download detection model and Test Object Detection
 Now that we know that the camera is working, we can test object detection.
