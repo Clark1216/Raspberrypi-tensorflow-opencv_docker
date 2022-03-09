@@ -17,6 +17,12 @@ Below is modified and tested from The original [Step-By-Step Instructions](https
 | Pi 4 Model B Rev 1.1 | 4G w/ 256M | Debian 11 "Bullseyes" (Linux kernel 5.10.92) | Fail (due to OS longer supports picamera libs)
 | Pi 4 Model B+ Rev 1.1  | 8G w/ 256M    | Debian 10 "Buster" (Linux kernel 5.10.63) | Pass
 
+1. Enable hdmi hotplug to ensure Raspberrypi can boot without connecting monitors:
+Open boot configuration file:
+```
+sudo nano /boot/config.txt
+```
+And then uncomment `hdmi_force_hotplug=1`
 
 ## Setup
 These are the main steps you need to complete:

@@ -43,8 +43,8 @@ def Camera_Searching():
             continue
         
         camera_id_list.append(device)
-    print('Available camera IDs are {}'.format(camera_id_list))
     if camera_id_list:
+    	print('Available camera IDs are {}'.format(camera_id_list))
         print('Choose the most likely UVC cam id: {}'.format(camera_id_list[0]))
         return camera_id_list[0]
     else:

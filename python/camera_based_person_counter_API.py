@@ -55,8 +55,8 @@ def Camera_Searching():
             continue
         
         camera_id_list.append(device)
-    print('Available camera IDs are {}'.format(camera_id_list))
     if camera_id_list:
+        print('Available camera IDs are {}'.format(camera_id_list))
         print('Choose the most likely UVC cam id: {}'.format(camera_id_list[0]))
         return camera_id_list[0]
     else:
@@ -353,5 +353,5 @@ if __name__ == '__main__':
     print("Model Loaded, app running")
     os.chdir("/app")
     app.run(debug=True, port=83, host='127.0.0.1')
-    # app.run(debug=True, port=83, host='172.20.115.125')
+    # app.run(debug=True, port=83, host='172.20.115.180')
    
