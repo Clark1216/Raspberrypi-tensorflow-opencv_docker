@@ -44,7 +44,7 @@ def Camera_Searching():
         
         camera_id_list.append(device)
     if camera_id_list:
-    	print('Available camera IDs are {}'.format(camera_id_list))
+        print('Available camera IDs are {}'.format(camera_id_list))
         print('Choose the most likely UVC cam id: {}'.format(camera_id_list[0]))
         return camera_id_list[0]
     else:
@@ -79,7 +79,7 @@ def Camera_Setting(dev_num):
 def uvc_capture(filepath,dev_num):
     ##kindly notice command "/dev/video0" using physical address, do not use "/dev/video0"
     ## Comment below 1 line if default setting for camera is needed
-    #Camera_Setting(dev_num)
+    # Camera_Setting(dev_num)
     commands = "fswebcam -d /dev/video{} --no-banner -r 1280x720 {}".format(dev_num,filepath)
     capture = os.system(commands)
 
@@ -91,13 +91,16 @@ if __name__ == '__main__':
     filepath='/app/imputdata/cam_test.jpg'
     print("Camera connecting")
     dev_num = Camera_Searching()
-    print("Camera starting")
-    uvc_capture(filepath,dev_num)
-    image_rgb_np =cv2.imread(filepath)
-    gray_img = cv2.cvtColor(image_rgb_np, cv2.COLOR_BGR2GRAY)
-    h, w = image_rgb_np.shape[:2]
-    m = np.reshape(gray_img, [1, w*h])
-    print("mean value of greyscale",m.sum()/(w*h))
+    if dev_num==[]:
+        print("No available UVC modules! Program ends! ")
+    else:
+        print("Camera starting")
+        uvc_capture(filepath,dev_num)
+        image_rgb_np =cv2.imread(filepath)
+        gray_img = cv2.cvtColor(image_rgb_np, cv2.COLOR_BGR2GRAY)
+        h, w = image_rgb_np.shape[:2]
+        m = np.reshape(gray_img, [1, w*h])
+        print("mean value of greyscale",m.sum()/(w*h))        
 
 
 
